@@ -1,0 +1,45 @@
+{
+  "name": "maze-chase",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "tsc --noEmit && node scripts/check.mjs",
+    "test": "npm run build && node --test --test-concurrency=2 test/*.test.js",
+    "build": "node scripts/build.mjs",
+    "start": "node src/server/main.ts",
+    "dev": "node --watch --watch-path=src --watch-path=dist --watch-path=public src/server/main.ts",
+    "format": "prettier --write src scripts test public/*.html public/*.css docs README.md package.json tsconfig.json",
+    "format:check": "prettier --check src scripts test public/*.html public/*.css docs README.md package.json tsconfig.json",
+    "build:pages": "node scripts/build-pages.mjs"
+  },
+  "dependencies": {
+    "@babylonjs/core": "9.33.2",
+    "@babylonjs/havok": "1.3.14",
+    "@babylonjs/loaders": "9.33.2",
+    "@colyseus/core": "0.18.26",
+    "@colyseus/schema": "5.0.43",
+    "@colyseus/sdk": "0.18.9",
+    "@colyseus/ws-transport": "0.18.4",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@gltf-transform/core": "4.5.1",
+    "@gltf-transform/functions": "4.5.1",
+    "@types/node": "26.6.6",
+    "esbuild": "0.28.2",
+    "happy-dom": "21.0.4",
+    "prettier": "3.9.10",
+    "typescript": "7.0.2"
+  },
+  "description": "Multiplayer browser FPS, maze pursuit and jumping challenges.",
+  "homepage": "https://service.example.com/",
+  "engines": {
+    "node": ">=24.12"
+  },
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HaltCatch/maze-chase.git"
+  }
+}

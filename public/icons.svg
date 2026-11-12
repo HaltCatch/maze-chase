@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <symbol id="mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h24v24H4zM11 28V11h10v10H11m17-3h-7M4 18h7m5-14v7"/></symbol>
+  <symbol id="door" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 27h22M8 27V14a8 8 0 0 1 16 0v13M12 27V14a4 4 0 0 1 8 0v13m-2-8h.1"/></symbol>
+  <symbol id="eye" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16s5-8 13-8 13 8 13 8-5 8-13 8S3 16 3 16Z"/><circle cx="16" cy="16" r="3.5"/><path d="m24 4-3 3M8 28l3-3"/></symbol>
+  <symbol id="compass" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="12"/><path d="m21 11-3 7-7 3 3-7 7-3Zm-5-7v2m0 20v2M4 16h2m20 0h2"/></symbol>
+  <use href="#mark" stroke="#e3b987"/>
+</svg>

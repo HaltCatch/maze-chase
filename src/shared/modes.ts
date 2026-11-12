@@ -1,0 +1,66 @@
+export const modeCatalog = {
+  parkour: {
+    name: '跃迁挑战',
+    category: '挑战',
+    tag: 'PARKOUR',
+    icon: 'compass',
+    description: '穿越窄桥、摆锤和气球跳台。独自挑战，或与好友比拼金币。',
+    win: '时间到，金币最多者获胜',
+    duration: '10–20 分钟',
+    tip: '天梯途中拾取弹簧解锁二段跳；坠落回起点并清空金币、道具。收齐金币可领取奖杯；路上单发炮，顶部另有三发炮。',
+  },
+  duel: {
+    name: '夺芯行动',
+    category: '竞技',
+    tag: 'OBJECTIVE',
+    icon: 'compass',
+    description: '争夺中央核心，突破对手防线，送到对方一侧的货位。',
+    win: '交付 3 次核心',
+    duration: '3 分钟',
+    tip: '持芯不能冲刺；击倒或近身反抢可拦截。只计交付，掉落核心 15 秒后回中场。',
+  },
+  skirmish: {
+    name: '交火对决',
+    category: '竞技',
+    tag: 'ELIMINATION',
+    icon: 'mark',
+    description: '掩体、枪法与走位。用你熟悉的装备赢下对决。',
+    win: '率先淘汰 8 次',
+    duration: '3 分钟',
+    tip: '倒下后重新入场。平分进入加赛，下一次淘汰决胜。',
+  },
+  gungame: {
+    name: '枪械进阶',
+    category: '竞技',
+    tag: 'GUN GAME',
+    icon: 'mark',
+    description: '从手枪打到狙击枪，每把武器都要证明自己。',
+    win: '完成 3 级武器 / 6 次淘汰',
+    duration: '5 分钟',
+    tip: 'M1911 → AK-47 → M24，每 2 次淘汰升级，只能使用当前阶段武器。',
+  },
+  survival: {
+    name: '合作突围',
+    category: '合作',
+    tag: 'HOLD TOGETHER',
+    icon: 'door',
+    description: '背靠背守住阵地，撑过五轮不断加强的突袭。',
+    win: '小队合作清除 5 波敌人',
+    duration: '最多 10 分钟',
+    tip: '靠近倒下队友按 E / X 救援，每人每波可被救一次。清波全队补给；全员倒下失败。',
+  },
+  escape: {
+    name: '迷宫追逃',
+    category: '追逐',
+    tag: 'THE HUNT',
+    icon: 'door',
+    description: '打开电闸，找到出口。别让身后的脚步追上你。',
+    win: '逃离迷宫 / 近身抓捕',
+    duration: '5 分钟',
+    tip: '默认不能翻墙，须沿通道开闸逃离；创建时可选翻墙。怪物用 E / 左键近身抓捕，逃生者右键拉弓、左键放箭。',
+  },
+} as const;
+
+// Variants share one action card; the server keeps the explicit rule id.
+export const primaryModes = ['parkour', 'duel', 'skirmish', 'survival', 'escape'] as const;
+export const combatVariants = ['skirmish', 'gungame'] as const;

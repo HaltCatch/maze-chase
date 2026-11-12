@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>雾垒 · 迷宫追逐</title>
+    <link rel="icon" href="/icons.svg#mark" type="image/svg+xml" />
+    <link rel="stylesheet" href="__GAME_STYLE__" />
+  </head>
+  <body>
+    <main id="lobby">
+      <header class="masthead">
+        <div class="brand">
+          <svg aria-hidden="true"><use href="/icons.svg#mark" /></svg> HAVEN ARCADE
+        </div>
+        <nav class="lobby-tabs">
+          <button id="operations-tab" aria-pressed="true">行动</button
+          ><button id="friends-tab" aria-pressed="false">
+            联机大厅 <b id="lobby-online">—</b>
+          </button>
+        </nav>
+        <span class="edition"><i></i> YOUR SQUAD / MANY WAYS</span>
+      </header>
+      <div id="lobby-stage">
+        <div class="stage-scrim"></div>
+        <div class="stage-identity">
+          <h1 id="title">雾垒</h1>
+          <span>HAVEN / TOGETHER</span>
+        </div>
+        <div class="stage-caption">
+          <div class="stage-rotate">
+            <button data-rotate="-1" aria-label="从左侧观察角色">↶</button
+            ><button data-rotate="1" aria-label="从右侧观察角色">↷</button>
+          </div>
+          <strong id="stage-caption">集结区</strong><span>拖动旋转 · 滚轮查看装备</span>
+          <div id="preview-weapons" aria-label="预览携带装备">
+            <button data-preview="primary" aria-pressed="true">主武器</button
+            ><button data-preview="pistol" aria-pressed="false">M1911</button
+            ><button data-preview="throwable" aria-pressed="false">投掷物</button>
+          </div>
+        </div>
+        <p id="stage-status" role="status">正在准备 3D 集结区…</p>
+      </div>
+      <div id="mode-heading" class="menu-heading">
+        <h2>选择行动</h2>
+        <span>01 选择玩法　 /　 02 配装　 /　 03 出发</span>
+      </div>
+      <section id="operation-hub" aria-label="行动选择">
+        <div class="mode-selection">
+          <nav id="mode-filters" aria-label="玩法类型">
+            <button data-category="全部" aria-pressed="true">全部行动</button
+            ><button data-category="竞技" aria-pressed="false">竞技</button
+            ><button data-category="合作" aria-pressed="false">合作</button
+            ><button data-category="追逐" aria-pressed="false">追逐</button>
+          </nav>
+          <div id="choices"></div>
+        </div>
+        <aside class="mission-brief" aria-label="行动简报">
+          <div class="mission-scroll">
+            <div id="brief-tag" class="eyebrow"></div>
+            <h2 id="brief-title"></h2>
+            <p id="brief-description"></p>
+            <div class="tactical-map">
+              <canvas
+                id="map-preview"
+                width="300"
+                height="300"
+                aria-label="所选地图俯视布局"
+              ></canvas
+              ><img id="maze-preview" src="/assets/courtyard.webp" alt="砖厂迷宫场景" hidden /><span
+                id="map-name"
+              ></span>
+            </div>
+            <div class="mission-facts">
+              <div><small>胜利条件</small><strong id="brief-win"></strong></div>
+              <div><small>对局时长</small><strong id="brief-duration"></strong></div>
+            </div>
+            <div class="mission-settings" aria-label="房间设置">
+              <label id="combat-variant-picker" hidden
+                >对决规则<span class="select-field"
+                  ><select id="combat-variant">
+                    <option value="skirmish">自选装备 · 8 次淘汰</option>
+                    <option value="gungame">枪械进阶 · 6 次淘汰</option>
+                  </select></span
+                ></label
+              >
+              <label id="arena-picker" for="arena"
+                >行动地点
+                <span class="select-field"
+                  ><select id="arena">
+                    <option value="docks">封锁码头</option>
+                    <option value="rail">旧铁路货站</option>
+                    <option value="warehouse">三线仓库</option>
+                    <option value="relay">中继站</option>
+                  </select></span
+                >
+              </label>
+              <div class="setting-pair">
+                <label
+                  >玩家上限<span class="select-field"
+                    ><select id="max-players">
+                      <option value="2">2 人</option>
+                      <option value="4">4 人</option>
+                      <option value="8">8 人</option>
+                    </select></span
+                  ></label
+                >
+                <label
+                  ><span id="ai-label">AI 数量</span
+                  ><span class="select-field"
+                    ><select id="ai-count">
+                      <option value="-1" selected>自动 · 单人补位</option>
+                      <option value="0">不添加</option>
+                      <option value="1">1 名</option>
+                      <option value="2">2 名</option>
+                      <option value="4">4 名</option>
+                      <option value="8">8 名</option>
+                    </select></span
+                  ></label
+                >
+              </div>
+              <label id="climb-picker" class="toggle-row" hidden
+                ><input type="checkbox" id="allow-climb" /> 允许翻墙 · 开启后可选二段跳</label
+              >
+              <div class="jump-settings" id="jump-settings">
+                <label class="toggle-row"
+                  ><input type="checkbox" id="double-jump" /> 开启二段跳</label
+                >
+                <label
+                  >第二跳高度<span class="select-field"
+                    ><select id="air-jump-height" disabled>
+                      <option value="0.7">轻跃 · 70%</option>
+                      <option value="1" selected>标准 · 100%</option>
+                      <option value="1.3">高跃 · 130%</option>
+                    </select></span
+                  ></label
+                >
+                <small>空中保留惯性 · 落地前按跳跃可接跳</small>
+              </div>
+              <label id="blackout-picker" class="toggle-row"
+                ><input type="checkbox" id="blackout" /> 夜间断电 · 手电与声音判断</label
+              >
+            </div>
+            <button id="open-editor" hidden>打开地图工坊</button>
+            <p id="brief-tip"></p>
+          </div>
+          <div class="mission-actions">
+            <button id="create-room" disabled>创建房间 · 选择装备 →</button
+            ><small class="solo-note">1–8 人 · 可配置 AI · 好友从大厅直接加入</small>
+          </div>
+        </aside>
+      </section>
+      <section id="server-browser" aria-labelledby="server-title" hidden>
+        <div class="server-heading">
+          <div>
+            <div class="eyebrow">PLAY TOGETHER</div>
+            <h2 id="server-title">联机大厅</h2>
+          </div>
+          <div class="server-presence">
+            <span id="connection-state" role="status">正在连接…</span><b id="online-count">—</b
+            ><span>人在线</span><button id="reconnect" hidden>重新连接</button>
+          </div>
+        </div>
+        <div class="browser-caption">
+          <span>选择房间，加入好友的对局</span><span id="room-count">正在获取房间…</span>
+        </div>
+        <div id="session-list" aria-label="可加入的房间">
+          <p class="empty-sessions">正在连接服务器…</p>
+        </div>
+        <label class="callsign"
+          >你的呼号
+          <input
+            id="player-name"
+            maxlength="18"
+            placeholder="自动分配玩家名"
+            autocomplete="nickname"
+        /></label>
+      </section>
+      <section id="room" hidden>
+        <div class="room-heading">
+          <div>
+            <div class="eyebrow">YOUR SQUAD</div>
+            <h2>准备出发</h2>
+          </div>
+          <button id="leave">返回联机大厅</button>
+        </div>
+        <div id="match-result" hidden role="status"></div>
+        <p id="roster"></p>
+        <div class="room-mission">
+          <span id="room-tag" class="eyebrow"></span><strong id="room-goal"></strong>
+        </div>
+        <div id="room-members" aria-label="房间玩家"></div>
+        <p id="room-hint"></p>
+        <label id="difficulty-picker" hidden
+          >AI 难度
+          <span class="select-field"
+            ><select id="difficulty">
+              <option value="easy">轻松</option>
+              <option value="normal" selected>标准</option>
+              <option value="hard">挑战</option>
+            </select></span
+          >
+        </label>
+        <p id="rules" hidden></p>
+        <form id="deployment">
+          <div class="deployment-head"><strong>出发前配装</strong><span>DEPLOYMENT</span></div>
+          <fieldset>
+            <legend>人物外观 <small>迷宫巡猎者使用固定外观</small></legend>
+            <div class="deploy-options">
+              <label
+                ><input type="radio" name="character" value="operator" /><span class="operator-icon"
+                  ><svg aria-hidden="true"><use href="/icons.svg#mark" /></svg></span
+                ><b>干员</b></label
+              >
+              <label
+                ><input type="radio" name="character" value="rogue" /><img
+                  src="/assets/rogue.webp"
+                  alt=""
+                  width="64"
+                  height="64"
+                  loading="lazy"
+                /><b>轻装游侠</b></label
+              >
+              <label
+                ><input type="radio" name="character" value="knight" /><img
+                  src="/assets/knight.webp"
+                  alt=""
+                  width="64"
+                  height="64"
+                  loading="lazy"
+                /><b>小骑士</b></label
+              >
+              <label
+                ><input type="radio" name="character" value="mage" /><img
+                  src="/assets/mage.webp"
+                  alt=""
+                  width="64"
+                  height="64"
+                  loading="lazy"
+                /><b>紫袍法师</b></label
+              >
+              <label
+                ><input type="radio" name="character" value="barbarian" /><img
+                  src="/assets/barbarian.webp"
+                  alt=""
+                  width="64"
+                  height="64"
+                  loading="lazy"
+                /><b>荒野战士</b></label
+              >
+              <label
+                ><input type="radio" name="character" value="ranger" checked /><img
+                  src="/assets/ranger.webp"
+                  alt=""
+                  width="64"
+                  height="64"
+                  loading="lazy"
+                /><b>兜帽游侠</b></label
+              >
+            </div>
+          </fieldset>
+          <p id="fixed-kit" hidden>
+            固定进阶装备：M1911 → AK-47 → M24，每级两次淘汰自动换枪，无投掷物。
+          </p>
+          <div id="firearm-kit">
+            <fieldset>
+              <legend>主武器</legend>
+              <div class="deploy-options">
+                <label
+                  ><input type="radio" name="primary" value="rifle" checked /><b>AK-47</b
+                  ><small>全自动 · 30 / 120</small></label
+                >
+                <label
+                  ><input type="radio" name="primary" value="sniper" /><b>M24</b
+                  ><small>开镜 · 5 / 15</small></label
+                >
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>投掷物</legend>
+              <div class="deploy-options">
+                <label
+                  ><input type="radio" name="throwable" value="flash" checked /><b>闪光弹</b
+                  ><small>遮挡与朝向影响白闪</small></label
+                >
+                <label
+                  ><input type="radio" name="throwable" value="frag" /><b>破片手雷</b
+                  ><small>近距离范围伤害</small></label
+                >
+                <label
+                  ><input type="radio" name="throwable" value="smoke" /><b>烟雾弹</b
+                  ><small>烟幕封住视线</small></label
+                >
+              </div>
+            </fieldset>
+            <p class="sidearm"><kbd>2</kbd> 副武器固定携带 M1911 · 7 / 28</p>
+          </div>
+        </form>
+        <button id="start">开始这一局</button>
+      </section>
+      <p id="status" role="status"></p>
+      <footer>
+        <span id="controller-status">键鼠 / 手柄 · A 确认，方向键导航</span>
+        <details id="controller-settings">
+          <summary>操作与手柄设置</summary>
+          <p>
+            WASD 移动 · Shift 冲刺 · Ctrl / C 下蹲 · Space 跳跃 / 迷宫翻墙 · E 交互<br />1–4
+            切换武器 · R 换弹 · 右键瞄准 / 拉弓，左键射击 · G 投掷 · Q 声诱饵 · L 手电
+          </p>
+          <p>
+            手柄：左摇杆移动 / 按下冲刺，右摇杆转向 · A 跳跃 · B 下蹲 · X 换弹 · Y 切换武器<br />LT
+            瞄准 / 拉弓 · RT 射击 · LB 投掷 · RB 交互 · Start 暂停 / 继续<br />菜单：方向键 /
+            左摇杆导航，左右调整选项，A 确认，B
+            返回。方向键上/下/左切主武器/手枪/投掷物，右切手电；按右摇杆投诱饵，Back 切导航。
+          </p>
+          <div class="control-settings">
+            <label
+              ><input type="checkbox" name="immersive" checked /> 全屏游玩 · 保护下蹲组合键</label
+            >
+            <label
+              >转向速度<span class="select-field"
+                ><select name="sensitivity">
+                  <option value="0.6">精细</option>
+                  <option value="1" selected>标准</option>
+                  <option value="1.4">快速</option>
+                  <option value="1.8">极快</option>
+                </select></span
+              ></label
+            ><label
+              >摇杆死区<span class="select-field"
+                ><select name="dead-zone">
+                  <option value="0.1">小 · 10%</option>
+                  <option value="0.16" selected>标准 · 16%</option>
+                  <option value="0.24">大 · 24%</option>
+                </select></span
+              ></label
+            ><label><input type="checkbox" name="invert-y" />反转右摇杆纵轴</label>
+          </div>
+        </details>
+        <a class="credits" href="/credits" target="_blank" rel="noopener">素材与开源许可</a
+        ><button id="quality" aria-label="切换画质">画质 · 均衡</button>
+      </footer>
+    </main>
+    <div id="loading-screen" hidden role="status">
+      <strong>正在准备场景</strong><span>载入材质与武器，请稍候…</span
+      ><button id="cancel-loading">取消加载 · 返回大厅</button>
+    </div>
+    <section id="play" hidden aria-label="迷宫场景">
+      <div id="vignette"></div>
+      <div id="damage-vignette" aria-hidden="true"></div>
+      <div id="scope" hidden aria-hidden="true"><span></span></div>
+      <div id="flash" aria-hidden="true"></div>
+      <div id="hud">
+        <span id="role"></span><strong id="clock"></strong><span id="objective"></span>
+      </div>
+      <div id="enemy" hidden>
+        <span id="enemy-label"></span
+        ><progress id="enemy-hp" aria-label="对手生命值" max="100"></progress>
+      </div>
+      <div id="squad-status" hidden></div>
+      <aside id="parkour-board" hidden aria-label="攀登高度与排名">
+        <small>ASCENT / 金币竞赛</small>
+        <div><strong id="parkour-height">0.0</strong><span>米</span></div>
+        <p id="parkour-best"></p>
+        <p id="parkour-coins"></p>
+        <ol id="parkour-ranks"></ol>
+        <p id="parkour-items"></p>
+      </aside>
+      <div id="kit">
+        <div id="vitals" hidden>
+          <div class="vitals-readout">
+            <span id="health-label">生命</span><span id="health-loss" aria-hidden="true"></span
+            ><strong id="health"></strong>
+          </div>
+          <div id="health-track">
+            <div id="health-trail"></div>
+            <progress id="health-meter" aria-label="自身生命值" max="100" value="100"></progress>
+          </div>
+        </div>
+        <div id="weapons">
+          <div class="weapon-row">
+            <span data-weapon="rifle"><kbd>1</kbd> AK-47 <b></b></span>
+            <span data-weapon="pistol"><kbd>2</kbd> M1911 <b></b></span>
+            <span data-weapon="sniper"><kbd>1</kbd> M24 <b></b></span>
+            <span data-weapon="frag"><kbd>4/G</kbd> 手雷 <b></b></span>
+            <span data-weapon="smoke"><kbd>4/G</kbd> 烟雾 <b></b></span>
+            <span data-weapon="flash" data-arena="port"><kbd>4/F</kbd> 闪光 <b></b></span>
+            <span data-weapon="bow" data-arena="maze"><kbd>1</kbd> 猎弓 <b></b></span>
+            <span data-weapon="cannon" data-arena="maze"><kbd>2</kbd> 火炮 <b></b></span>
+            <span data-weapon="flash" data-arena="maze"><kbd>3/F</kbd> 闪光 <b></b></span>
+          </div>
+          <span id="reload-label"></span>
+          <progress id="reload-progress" aria-label="换弹进度" max="1" hidden></progress>
+          <span id="bow-controls"></span
+          ><progress id="bow-charge" aria-label="拉弓蓄力" max="1" hidden></progress>
+        </div>
+        <small id="action-feedback" role="status"></small>
+        <span id="decoy"></span><span id="torch"></span>
+        <div class="stamina-caption"><span>冲刺</span><span id="stamina-state">100%</span></div>
+        <div
+          id="stamina"
+          role="meter"
+          aria-label="冲刺体力"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="100"
+        >
+          <span id="energy"></span>
+        </div>
+      </div>
+      <div id="crosshair" aria-hidden="true"></div>
+      <div id="hit-marker" aria-hidden="true"></div>
+      <div id="route" hidden><span id="route-arrow">▲</span><span id="route-name"></span></div>
+      <button id="capture">
+        <span id="capture-label">点击进入迷宫</span><strong id="capture-mission"></strong
+        ><small id="capture-controls"></small><small>Esc 暂停操作 / 释放鼠标 · 对局仍在继续</small>
+      </button>
+      <button id="quit">返回大厅</button>
+    </section>
+    <script type="module" src="__GAME_SCRIPT__"></script>
+  </body>
+</html>

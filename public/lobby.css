@@ -1,0 +1,929 @@
+/* Full-screen preparation scene. UI remains crisp at every render scale. */
+#lobby {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0 30px;
+  isolation: isolate;
+  overflow: hidden;
+  background: #15232c;
+}
+#lobby-stage {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+#lobby-stage > canvas {
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+.stage-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, #0c1724e0, transparent 35%, transparent 60%, #0c1724d6),
+    linear-gradient(#07121ba1, transparent 28%, transparent 70%, #07121bcc);
+}
+.stage-identity {
+  position: absolute;
+  left: 32px;
+  top: 90px;
+  pointer-events: none;
+}
+#lobby:not(.in-room) .stage-identity h1,
+.stage-identity h1 {
+  margin: 0 0 10px;
+  font-size: 50px;
+  color: #f4f1e8;
+  letter-spacing: 0.12em;
+}
+.stage-identity > span {
+  font:
+    11px ui-monospace,
+    monospace;
+  letter-spacing: 0.3em;
+  color: #b8c8d1;
+}
+.stage-caption {
+  position: absolute;
+  left: 50%;
+  bottom: 70px;
+  transform: translateX(-50%);
+  text-align: center;
+  white-space: nowrap;
+}
+.stage-caption strong {
+  display: block;
+  font-size: 20px;
+  letter-spacing: 0.12em;
+  text-shadow: 0 2px 12px #000;
+}
+.stage-caption > span {
+  display: block;
+  margin: 8px 0 14px;
+  color: #bed0da;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+}
+#preview-weapons {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+}
+#preview-weapons button {
+  font-size: 11px;
+  padding: 7px 10px;
+  background: #152638c9;
+  border-color: #62778166;
+}
+#preview-weapons button[aria-pressed='true'] {
+  background: #c8dbdf;
+  color: #152638;
+}
+#stage-status {
+  position: absolute;
+  left: 50%;
+  top: 48%;
+  transform: translateX(-50%);
+  color: #deebf0;
+  text-shadow: 0 2px 6px black;
+}
+.masthead {
+  border-bottom: 1px solid #bbd7e32a;
+  height: 65px;
+  gap: 20px;
+}
+.brand {
+  color: #cbdde5;
+  white-space: nowrap;
+}
+.lobby-tabs {
+  display: flex;
+  align-self: stretch;
+  gap: 24px;
+  flex: 1;
+  margin-left: 28px;
+}
+.lobby-tabs button {
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  border-radius: 0;
+  padding: 0 10px;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+}
+.lobby-tabs button[aria-pressed='true'] {
+  color: #ffdb9c;
+  border-bottom-color: #ffdb9c;
+}
+.lobby-tabs b {
+  margin-left: 8px;
+  color: #7ed5c4;
+}
+#mode-heading {
+  position: absolute;
+  left: 32px;
+  top: 196px;
+  margin: 0;
+}
+#mode-heading h2 {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: #9db2bf;
+}
+#mode-heading > span {
+  display: none;
+}
+#operation-hub {
+  display: contents;
+}
+.mode-selection {
+  position: absolute;
+  top: 224px;
+  left: 30px;
+  width: 246px;
+  max-height: calc(100dvh - 300px);
+  overflow: auto;
+  scrollbar-width: thin;
+}
+#mode-filters {
+  gap: 4px;
+  margin-bottom: 12px;
+}
+#mode-filters button {
+  padding: 7px 8px;
+  font-size: 11px;
+  background: #142333aa;
+}
+#choices {
+  grid-template-columns: 1fr;
+  gap: 6px;
+}
+#choices button {
+  min-height: 61px;
+  height: 61px;
+  padding: 11px 12px 11px 52px;
+  border: 1px solid #a6c3cf21;
+  border-left: 2px solid #97b7c440;
+  background: #102132b5;
+  border-radius: 0;
+}
+#choices button:first-child {
+  background: #102132b5;
+  border-color: #a6c3cf21;
+}
+#choices button[aria-pressed='true'] {
+  background: linear-gradient(90deg, #e4d8b1f0, #afbdcce8);
+  border-color: #f8e4af;
+  color: #13212b;
+}
+#choices button[aria-pressed='true'] small,
+#choices button[aria-pressed='true'] svg {
+  color: #314e5d;
+}
+#choices button strong {
+  font-size: 16px;
+  letter-spacing: 0.08em;
+}
+#choices button small {
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  margin-bottom: 3px;
+}
+#choices button svg {
+  width: 23px;
+  height: 23px;
+  top: 18px;
+  left: 16px;
+}
+#choices button span {
+  display: none;
+}
+.mission-brief {
+  position: absolute;
+  right: 30px;
+  top: 100px;
+  width: 340px;
+  --brief-padding: 20px;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100dvh - 164px);
+  overflow: hidden;
+  background: #0e1e2ce0;
+  border: 1px solid #a6c3cf29;
+  padding: 0;
+  box-shadow: 0 15px 50px #06131d55;
+}
+.mission-scroll {
+  min-height: 0;
+  overflow: auto;
+  padding: var(--brief-padding);
+  scrollbar-width: thin;
+  scrollbar-gutter: stable;
+}
+.mission-brief h2 {
+  font-size: 27px;
+  margin: 12px 0;
+  letter-spacing: 0.06em;
+}
+.mission-scroll > p {
+  line-height: 1.65;
+  font-size: 12px;
+  color: #b3c6d1;
+}
+.tactical-map {
+  height: 118px;
+  margin: 16px 0;
+  background: #101c29;
+}
+.tactical-map canvas {
+  width: 118px;
+  height: 118px;
+  margin: auto;
+}
+.tactical-map img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+.mission-facts {
+  gap: 10px;
+  margin: 12px 0;
+}
+.mission-facts strong {
+  font-size: 12px;
+  font-weight: 500;
+}
+.mission-facts small {
+  font-size: 10px;
+  color: #9db2bf;
+}
+.mission-settings {
+  display: grid;
+  gap: 14px;
+  margin: 16px 0;
+}
+.mission-settings label,
+.mission-settings #arena-picker {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(100px, 1.3fr);
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  min-width: 0;
+  font-size: 13px;
+}
+.mission-settings select {
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  min-height: 36px;
+  padding: 7px 9px;
+  font-size: 12px;
+  background: #172a39;
+}
+.setting-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+.setting-pair label {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 7px;
+}
+.jump-settings {
+  display: grid;
+  gap: 12px;
+  padding: 14px 0;
+  border-top: 1px solid #a6c3cf29;
+  border-bottom: 1px solid #a6c3cf29;
+}
+.mission-settings .toggle-row {
+  display: flex;
+  gap: 9px;
+  line-height: 1.5;
+}
+.toggle-row input {
+  flex: 0 0 auto;
+  margin: 0;
+  width: 16px;
+  height: 16px;
+}
+.jump-settings > small {
+  font-size: 11px;
+  line-height: 1.6;
+  color: #a4bdcc;
+}
+.mission-actions {
+  flex: 0 0 auto;
+  padding: 14px var(--brief-padding) 18px;
+  background: #0e1e2c;
+  border-top: 1px solid #a6c3cf29;
+}
+.mission-actions #create-room {
+  display: block;
+  width: 100%;
+}
+.mission-actions .solo-note {
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* Keep native select menus and keyboard behavior; only normalize the closed control. */
+.select-field {
+  position: relative;
+  display: grid;
+  min-width: 0;
+}
+.select-field::after {
+  content: '';
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  margin-top: -5px;
+  border-right: 1.5px solid #c3d4df;
+  border-bottom: 1.5px solid #c3d4df;
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+#lobby .select-field select {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  min-height: 38px;
+  margin: 0;
+  padding: 8px 38px 8px 12px;
+  border: 1px solid #5f7787;
+  border-radius: 3px;
+  background: #182c3b;
+  color: #e4edf2;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.3;
+  cursor: pointer;
+}
+#lobby .select-field select:hover:not(:disabled) {
+  border-color: #c5af80;
+  background: #203747;
+}
+#lobby .select-field select:disabled {
+  color: #8c9eaa;
+  border-color: #354b59;
+  cursor: default;
+}
+.select-field:has(select:disabled)::after {
+  border-color: #718591;
+}
+#lobby .select-field select:focus-visible {
+  outline: 2px solid #e3c58c;
+  outline-offset: 2px;
+}
+#lobby .toggle-row input,
+#controller-settings input[type='checkbox'] {
+  accent-color: #e3c58c;
+  width: 17px;
+  height: 17px;
+}
+#lobby .toggle-row input:focus-visible {
+  outline: none;
+}
+#lobby .toggle-row:has(input:focus-visible) {
+  outline: 1px solid #e3c58c;
+  outline-offset: 5px;
+  border-radius: 2px;
+}
+#difficulty-picker {
+  display: grid;
+  grid-template-columns: 1fr minmax(120px, 1fr);
+  align-items: center;
+  gap: 12px;
+  margin: 14px 0;
+}
+.control-settings .select-field {
+  min-width: 110px;
+}
+#brief-tip {
+  font-size: 11px;
+  color: #8099aa;
+}
+#create-room,
+#start {
+  background: #e3c58c;
+  border: 1px solid #ffe1ab;
+  color: #1c2830;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  padding: 14px 8px;
+}
+.solo-note {
+  font-size: 10px;
+  color: #8eafbf;
+}
+#server-browser {
+  position: absolute;
+  top: 115px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(850px, 90vw);
+  max-height: calc(100dvh - 200px);
+  overflow: auto;
+  background: #102131f5;
+  border: 1px solid #728c9c77;
+  box-shadow: 0 20px 90px #0009;
+  padding: 24px;
+}
+#room {
+  position: absolute;
+  top: 92px;
+  bottom: 70px;
+  right: 30px;
+  width: 345px;
+  overflow: auto;
+  padding: 18px;
+  border: 1px solid #97b7c433;
+  background: #102131e8;
+  scrollbar-width: thin;
+}
+.in-room .stage-identity {
+  top: 100px;
+}
+.room-heading {
+  margin: 0 0 12px;
+  gap: 8px;
+}
+.room-heading h2 {
+  font-size: 21px;
+}
+.room-heading button {
+  font-size: 10px;
+  padding: 6px;
+}
+#roster,
+#room-hint,
+.room-mission {
+  font-size: 11px;
+}
+.room-mission {
+  padding: 10px;
+  margin: 10px 0;
+  background: #1c3041;
+}
+#room-members {
+  gap: 6px;
+  margin: 10px 0;
+}
+.member {
+  padding: 9px;
+  font-size: 12px;
+}
+.member small {
+  font-size: 10px;
+}
+#deployment {
+  margin: 14px 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.deployment-head {
+  display: none;
+}
+#deployment fieldset {
+  margin: 12px 0;
+  padding: 0;
+  border: 0;
+}
+#deployment legend {
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+#deployment legend small {
+  display: none;
+}
+.deploy-options {
+  gap: 5px;
+}
+#deployment fieldset:first-child .deploy-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.deploy-options label {
+  padding: 8px 4px;
+  min-width: 0;
+  background: #1c3041;
+  border: 1px solid #829cac33;
+  font-size: 10px;
+}
+.deploy-options label:has(input:checked) {
+  border-color: #e3c58c;
+  background: #3d413e;
+}
+.deploy-options img,
+.operator-icon {
+  height: 43px;
+  width: 43px;
+}
+.deploy-options small {
+  font-size: 9px;
+}
+.deploy-options b {
+  font-size: 11px;
+}
+.sidearm,
+#fixed-kit {
+  font-size: 10px;
+}
+#room #start {
+  width: 100%;
+  margin: 8px 0 0;
+}
+#status {
+  position: absolute;
+  bottom: 48px;
+  left: 30px;
+  font-size: 11px;
+  max-width: 30vw;
+  color: #c2d4df;
+}
+#lobby footer {
+  position: absolute;
+  bottom: 0;
+  left: 30px;
+  right: 30px;
+  height: 46px;
+  margin: 0;
+  border-top: 1px solid #bed4e526;
+  background: transparent;
+}
+#lobby footer details[open] {
+  position: absolute;
+  bottom: 5px;
+  padding: 14px;
+  background: #102131f5;
+  border: 1px solid #728c9c77;
+}
+#lobby footer .credits {
+  margin-left: auto;
+}
+#lobby footer #quality {
+  margin-left: 10px;
+}
+@media (max-height: 740px) and (min-width: 1000px) {
+  .stage-identity {
+    top: 80px;
+  }
+  .stage-identity h1 {
+    font-size: 38px;
+  }
+  #mode-heading {
+    top: 155px;
+  }
+  .mode-selection {
+    top: 178px;
+    max-height: calc(100dvh - 240px);
+  }
+  .mission-brief {
+    top: 82px;
+    padding: 15px;
+  }
+  .mission-scroll > p {
+    margin: 8px 0;
+  }
+  .tactical-map {
+    height: 80px;
+    margin: 10px 0;
+  }
+  .tactical-map canvas {
+    width: 80px;
+    height: 80px;
+  }
+  .mission-brief h2 {
+    font-size: 24px;
+  }
+  .mission-facts {
+    margin: 8px 0;
+  }
+  #brief-tip {
+    display: none;
+  }
+}
+@media (max-width: 1000px) {
+  #lobby {
+    padding: 0 16px;
+  }
+  .edition {
+    display: none;
+  }
+  .lobby-tabs {
+    margin-left: 0;
+    gap: 8px;
+  }
+  .mode-selection {
+    left: 16px;
+    width: 190px;
+  }
+  .mission-brief {
+    right: 16px;
+    width: 280px;
+    --brief-padding: 14px;
+  }
+  #room {
+    right: 16px;
+    width: 300px;
+  }
+  #mode-heading,
+  .stage-identity {
+    left: 18px;
+  }
+  .stage-caption {
+    left: 47%;
+    font-size: 11px;
+  }
+  .stage-caption strong {
+    font-size: 14px;
+  }
+}
+@media (max-width: 720px) {
+  #lobby {
+    overflow: auto;
+  }
+  .masthead {
+    height: 54px;
+  }
+  .brand {
+    font-size: 9px;
+    letter-spacing: 0;
+  }
+  .brand svg {
+    width: 20px;
+  }
+  .stage-identity {
+    top: 76px;
+  }
+  .stage-identity h1 {
+    font-size: 36px;
+  }
+  #lobby-stage {
+    position: fixed;
+    height: 64dvh;
+  }
+  .stage-caption {
+    bottom: 10px;
+    left: 50%;
+  }
+  .stage-caption > span {
+    margin: 5px 0;
+  }
+  #mode-heading {
+    top: 150px;
+  }
+  .mode-selection {
+    top: 180px;
+    left: 16px;
+    width: 150px;
+    max-height: calc(60dvh - 200px);
+  }
+  #mode-filters {
+    flex-wrap: wrap;
+  }
+  #mode-filters button {
+    font-size: 9px;
+    padding: 4px;
+  }
+  #choices button {
+    padding: 8px;
+    min-height: 44px;
+  }
+  #choices svg,
+  #choices small {
+    display: none;
+  }
+  #choices button strong {
+    font-size: 12px;
+  }
+  .mission-brief,
+  #room {
+    position: relative;
+    top: auto;
+    bottom: auto;
+    right: auto;
+    width: 100%;
+    margin-top: calc(64dvh - 54px);
+    max-height: none;
+    padding: 18px;
+    margin-bottom: 80px;
+  }
+  .mission-brief {
+    --brief-padding: 18px;
+    padding: 0;
+  }
+  .tactical-map {
+    display: none;
+  }
+  #lobby footer {
+    position: fixed;
+    background: #102131f2;
+    left: 0;
+    right: 0;
+    padding: 0 12px;
+  }
+  #status {
+    position: fixed;
+    bottom: 43px;
+    max-width: 95vw;
+    background: #102131e8;
+    padding: 5px;
+    left: 12px;
+  }
+  #server-browser {
+    top: 90px;
+    max-height: calc(100dvh - 160px);
+    padding: 14px;
+  }
+}
+
+#lobby:not(.in-room) .stage-identity h1 {
+  font-size: 48px;
+  margin: 0 0 10px;
+}
+
+#choices strong {
+  margin-top: 3px;
+}
+.room-mission {
+  flex-direction: column;
+  align-items: start;
+  gap: 7px;
+}
+.room-mission strong {
+  font-size: 13px;
+}
+#rules {
+  display: none;
+}
+
+.stage-rotate {
+  display: flex;
+  justify-content: center;
+  gap: 110px;
+  margin-bottom: 10px;
+}
+.stage-rotate button {
+  border: 1px solid #b1c8d744;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: #11223199;
+  color: #bdd3de;
+  font-size: 20px;
+}
+
+#room {
+  bottom: 135px;
+}
+#room #start {
+  position: fixed;
+  right: 30px;
+  bottom: 68px;
+  width: 345px;
+  margin: 0;
+  box-shadow: 0 0 25px #06131d77;
+}
+@media (max-width: 1000px) {
+  #room #start {
+    right: 16px;
+    width: 300px;
+  }
+}
+@media (max-width: 720px) {
+  #room {
+    bottom: auto;
+  }
+  #room #start {
+    right: 16px;
+    bottom: 59px;
+    width: calc(100% - 32px);
+  }
+}
+
+#map-editor {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: #14232a;
+  color: #e4eeee;
+  display: flex;
+  flex-direction: column;
+  padding: 18px;
+  box-sizing: border-box;
+}
+#map-editor header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#map-editor h2 {
+  margin: 4px 0 12px;
+}
+#map-editor small {
+  letter-spacing: 0.14em;
+  color: #a4b4b6;
+}
+.editor-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 290px;
+  gap: 18px;
+  flex: 1;
+  min-height: 0;
+}
+.editor-workspace canvas {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  touch-action: none;
+}
+.editor-workspace aside {
+  overflow: auto;
+  padding: 10px;
+}
+.editor-workspace label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 10px 0;
+}
+.editor-workspace input[type='number'] {
+  width: 100px;
+}
+.editor-workspace select {
+  max-width: 180px;
+}
+.editor-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.editor-help {
+  font-size: 12px;
+  color: #acbdbe;
+  line-height: 1.7;
+}
+.editor-import {
+  font-size: 12px;
+  flex-wrap: wrap;
+}
+.editor-import input {
+  max-width: 125px;
+}
+.editor-play {
+  width: 100%;
+  margin-top: 16px;
+  background: #c6a469;
+  color: #101b20;
+}
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid #f5ca7f;
+  outline-offset: 3px;
+}
+@media (max-width: 900px) {
+  .editor-workspace {
+    grid-template-columns: 1fr;
+    grid-template-rows: 45% 55%;
+  }
+}
+
+.control-settings {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.control-settings label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+#controller-settings[open] {
+  z-index: 60;
+  max-width: calc(100vw - 48px);
+  max-height: 65vh;
+  overflow: auto;
+}
+#deployment label:has(input:focus-visible) {
+  outline: 2px solid #f5ca7f;
+  outline-offset: 2px;
+}

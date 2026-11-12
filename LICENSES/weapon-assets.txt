@@ -1,0 +1,212 @@
+DJMaesen (bumstrum) — fps animated smg
+Source: https://sketchfab.com/3d-models/fps-animated-smg-ea3dad7478624495a5a46f40127b0579
+License: Creative Commons Attribution 4.0 International (https://creativecommons.org/licenses/by/4.0/)
+Adapted upstream by Operation Steel Tide:
+https://github.com/cktang88/3d-fps/blob/130ac2a5c856401ec36e7d35afcfefe40c5801f4/public/assets/models/weapons/animated_reload_arms.glb
+Adapted here by keeping one textured arm mesh and its skeleton, removing reload animations, and retargeting poses.
+
+CreativeTrio — Bow, Bazooka and Arrow (CC0 1.0)
+https://poly.pizza/m/H6vbuPvWtg
+https://poly.pizza/m/eJNzLpBsEt
+https://poly.pizza/m/dZVjrxZdaB
+The Bow model's static string was removed for the draw animation.
+
+Pichuliru — Flashbang Grenade West (CC0 1.0)
+https://poly.pizza/m/fiJvXydZUg
+
+Audio recordings, trimmed and encoded to MP3 (CC0 1.0)
+JoeDinesSound — Archery foley and target impact
+https://freesound.org/people/JoeDinesSound/sounds/534953/
+https://freesound.org/people/JoeDinesSound/sounds/534949/
+saturdaysoundguy — Longbow Release 1
+https://freesound.org/people/saturdaysoundguy/sounds/394178/
+qubodup — Cannon Shot, extracted from US Government footage
+https://freesound.org/people/qubodup/sounds/187767/
+areniporgen — CTS 7290 flashbang
+https://freesound.org/people/areniporgen/sounds/693421/
+Joseph Sardin / LaSonotheque — Explosion #2, Metal ball bounce #2, Breathless man, Footsteps shoe on concrete
+https://lasonotheque.org/explosion-2-s1808.html
+https://bigsoundbank.com/metal-ball-bounce-2-s2243.html
+https://bigsoundbank.com/breathless-man-s1103.html
+https://bigsoundbank.com/footsteps-shoe-on-concrete-s0514.html
+Joseph Sardin and Axeline T. — 1 pendulum chime
+https://bigsoundbank.com/1-pendulum-chime-s3360.html
+
+Harbor firearms (gun meshes and attachment points extracted from the authored GLBs)
+Operation Steel Tide / cktang88: https://github.com/cktang88/3d-fps/tree/130ac2a5c856401ec36e7d35afcfefe40c5801f4/public/assets/models/fp
+AK-47: Operation Steel Tide adaptation, original meshes CC0 (see source README fallback weapon credits).
+https://github.com/AetherRadar/operation-steel-tide/blob/main/docs/CONTENT_PROVENANCE.md
+M1911 by egorbelous and M24 by Naudaff3D, CC BY 4.0.
+https://sketchfab.com/3d-models/m1911-pistol-80a0b8a6c4314da4a7b3a7cfe6cec1d4
+https://sketchfab.com/3d-models/m24-bounty-hunter-sniper-rifle-d40e74e2259549f5b025807163f1028c
+https://creativecommons.org/licenses/by/4.0/
+
+DanKit / Poly Haven — Ammo Box (CC0 1.0)
+https://polyhaven.com/a/ammo_box
+Pichuliru — Frag Grenade West (CC0 1.0)
+https://poly.pizza/m/1aIZys4mhg
+The Free Firearm Sound Library (CC0 1.0) recordings for firearm shots and reloads, trimmed and encoded to MP3 from the Operation Steel Tide browser port's edits. The AK-74 recording is used for the AK-47.
+https://opengameart.org/content/the-free-firearm-sound-library
+
+KayKit Character Pack: Adventurers 1.0 — Kay Lousberg, CC0 1.0 Universal.
+Source: https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0/tree/672074b73ba276876a19e8816ecdc5241817ab47
+Runtime: public/assets/models/knight.glb and rogue.glb; removed separate handheld props
+and unused animations and repackaged as GLB. The two WebP portraits are renders
+of these same original meshes and textures.
+
+Pichuliru — Smoke Grenade West (CC0 1.0): https://poly.pizza/m/GbhfKcTiF9
+Kenney — Particle Pack, smoke_01 (CC0 1.0): https://kenney.nl/assets/particle-pack
+bart — Steam release sounds, Marker #2 (CC0 1.0):
+https://opengameart.org/content/steam-release-sounds
+Smoke texture was resized and converted to WebP; hiss converted to MP3.
+
+KayKit Character Animations 1.1 — Kay Lousberg, CC0 1.0 Universal.
+https://kaylousberg.itch.io/kaykit-character-animations
+The Free 1.1 archive's Rig_Medium_MovementAdvanced.glb supplies the authored
+Crouching and Sneaking clips. scripts/extract-character-movement.mjs extracts
+only their animation data into kaykit-movement.glb. The shared named deform
+bones and bind transforms match the existing Adventurers rigs.
+
+Character cloning and blending now use official Babylon AssetContainer and
+AnimationGroup. The previous Three.js renderer has been removed.
+
+Arena — Ben Darling, MIT.
+https://github.com/Hazzad123/fully-ai-arena-fps/tree/920b123d67015d5e8151a4ebd6742d8015d538be
+Adapted server/modes.js gun ladder and team damage policy, server/room.js staggered
+survival waves, server/ai.js weapon-dependent retreat/strafe distances, and the
+three-lane map design of shared/maps/warehouse.js. Integrated with our existing
+weapons, Havok collision and Colyseus rooms. Full notice: arena-fps.txt.
+
+Additional KayKit Adventurers 1.0 characters (same source and CC0 terms above):
+Mage, Barbarian and Rogue_Hooded -> mage.glb, barbarian.glb, ranger.glb.
+Only original meshes, skins, textures and selected authored clips are retained.
+Redundant animation keys were resampled with glTF Transform 4.5.1 (1e-5 tolerance);
+geometry, skins and texture pixels are unchanged.
+The portraits are actual renders of the matching models; no generated meshes.
+
+3D preparation scene props — Quaternius Toon Shooter Game Kit, CC0 1.0.
+Source: https://github.com/Hazzad123/fully-ai-arena-fps/tree/920b123d67015d5e8151a4ebd6742d8015d538be/client/public/models/props
+Container_Small, Pallet, Crate, StreetLight -> lobby-container, lobby-pallet,
+lobby-crate, lobby-lamp.glb. Converted glTF to GLB and deduplicated with
+ glTF Transform 4.5.1; original meshes and materials retained.
+
+Third-person authored combat animations (animation-only GLBs):
+operator-combat.glb: Quaternius Universal Animation Library, CC0 1.0,
+from https://github.com/NafisRayan/Animate-Rigged-Humanoid-No-Blender/tree/5821923af517ac5fdc82505faa92a0d575fc1b1a (test/human_male.glb).
+adventurer-combat.glb: KayKit Adventurers 1.0 (source/CC0 above).
+Only pistol/ranged aim, fire, reload and throw tracks are retained, resampled at
+1e-5 tolerance. Preparation script: scripts/prepare-showcase-assets.mjs.
+Third-person layering/held-item separation references Arena client/src/remotePlayers.js
+(MIT, arena-fps.txt). IK uses Babylon BoneIKController from the installed official
+package; the original rig's wrist intermediary bones and hand slots are preserved.
+
+Runtime migration:
+Babylon.js — Apache-2.0, https://github.com/BabylonJS/Babylon.js
+@babylonjs/havok distribution — MIT, https://github.com/BabylonJS/havok
+Colyseus — MIT, https://github.com/colyseus/colyseus
+Official GamepadManager, PhysicsCharacterController, AssetContainer, AnimationGroup,
+BoneIKController, GizmoManager, Room/StateView/Input/Predict are used from pinned packages.
+No custom controller driver or fork of these engines is shipped.
+
+First-person arm adapter: Workmelt MIT, upstream commit
+4af0cfa81cbef5bb9f90cfbf3789d2abcaa2e649
+https://github.com/eriknomitch/workmelt/blob/4af0cfa81cbef5bb9f90cfbf3789d2abcaa2e649/src/weapons/hands.js
+Ported the existing arm solver and model-space grip conventions to Babylon TransformNode
+and Quaternion. Retained the original licensed arm mesh; corrected centimetre-to-metre
+scale and joint axes. Full upstream notice: workmelt.txt.
+
+Forest ascent course assets:
+Kenney Nature Kit, Castle Kit, City Kit (Suburban), Platformer Kit — CC0 1.0.
+Original author/source/license pages:
+https://kenney.nl/assets/nature-kit
+https://kenney.nl/assets/castle-kit
+https://kenney.nl/assets/city-kit-suburban
+https://kenney.nl/assets/platformer-kit
+Selected self-contained GLBs obtained from the format mirror at commit
+https://github.com/Hidencod/tge-assets/tree/ea2f2aa1ca8da0898330c97df8a5489976b051d0/packs
+Nature: tree-oak, tree-pinetalla-detailed, plant-bushdetailed, rock-largea,
+grass-large -> ascent-oak/pine/bush/rock/grass.glb.
+City Kit: building-type-a/f -> ascent-house/house-alt.glb.
+Castle: tower-square, stairs-stone -> ascent-tower/stairs.glb.
+Platformer: block-grass-low-large, coin-gold -> ascent-platform/coin.glb.
+Original model geometry and embedded materials retained; runtime instances are
+scaled/placed. A smooth convex ramp matches the staircase footprint and endpoints;
+twelve original visible treads are preserved.
+
+Forest Ground 04 — Rob Tuytel and Rico Cilliers / Poly Haven, CC0 1.0.
+https://polyhaven.com/a/forest_ground_04
+1K Diffuse JPEG converted to 1024px WebP quality 84 as forest-floor.webp.
+Metadata downloaded once from the Poly Haven API (Powered by Poly Haven);
+there is no runtime third-party API or texture request.
+
+24 cute fighting game voice recordings — bart, CC BY 3.0.
+https://opengameart.org/content/24-cute-fighting-game-voice-recordings
+https://opengameart.org
+https://creativecommons.org/licenses/by/3.0/
+Original cute.zip: Female - Oof2 1.wav -> fall-scream.mp3.
+Recorded cartoon vocal; trimmed to 0.6 s, normalized -24 LUFS / -6 dBTP,
+end fade, mono 44.1 kHz / 96 kbps. No synthesized voice.
+
+Additional Kenney models from the same pinned tge-assets mirror, CC0:
+Nature Kit: bridge-center-wood -> ascent-bridge.glb.
+Platformer Kit: fence-rope -> ascent-rope.glb.
+Pirate Kit: cannon-ball -> ascent-pendulum.glb.
+Prototype Kit: pipe -> ascent-pole.glb.
+https://kenney.nl/assets/pirate-kit
+https://kenney.nl/assets/prototype-kit
+Scaled and instanced; the pipe and cannon ball form the animated pendulum.
+
+Balloons — Jarlan Perez, CC BY 3.0.
+https://poly.pizza/m/eRag_AC3KiS
+https://creativecommons.org/licenses/by/3.0/
+Original GLB https://static.poly.pizza/a0f6c39f-44cb-41bf-9d47-d9be49c0c58e.glb
+Saved as ascent-balloons.glb, geometry/materials retained; runtime scale/placement.
+
+Parkour product references (design only; no engine/source copied):
+https://discourse.threejs.org/t/multiplayer-voxel-parkour-game-three-js-rust/40948
+Voxelize Realms: shared race course, ordered checkpoints and live standings.
+The existing Colyseus authority and Havok controller implement these rules here.
+
+Trophy — CreativeTrio, CC0, https://poly.pizza/m/fLy8KmmD1t
+Downloaded original GLB as ascent-trophy.glb; scaled/placed, runtime emissive pulse,
+rotation and vertical float. No additional lighting/shadow render pass.
+
+Single balloon — Poly by Google, CC BY 3.0.
+https://poly.pizza/m/d1gDDhM7pTf
+https://creativecommons.org/licenses/by/3.0/
+Original balloon body retained as ascent-bounce.glb; string/knot triangles removed
+by scripts/prepare-bounce-asset.mjs, body fitted to the spherical collider.
+
+Course pickups — Kenney, CC0 1.0, same pinned tge-assets mirror above:
+Space Kit rocket-finsa + rocket-fuela + rocket-topa -> ascent-rocket.glb.
+Assembled original modular parts with scripts/prepare-course-rocket.mjs; no generated mesh.
+Mini Dungeon potion -> ascent-tonic.glb.
+Food Kit soda-bottle -> ascent-energy.glb.
+https://kenney.nl/assets/space-kit
+https://kenney.nl/assets/mini-dungeon
+https://kenney.nl/assets/food-kit
+Original GLB geometry/materials, runtime placement/scale.
+
+Forest environment — Poly Haven (CC0 1.0)
+License: https://polyhaven.com/license
+Sources (fixed download URLs and upstream checksums: scripts/forest-sources.json):
+- https://polyhaven.com/a/pine_sapling_small
+- https://polyhaven.com/a/fir_sapling_medium
+- https://polyhaven.com/a/rock_moss_set_01
+- https://polyhaven.com/a/tree_stump_01
+- https://polyhaven.com/a/fern_02
+- https://polyhaven.com/a/forest_ground_04
+- https://polyhaven.com/a/weathered_brown_planks
+Adaptations: selected authored variants, Blender decimation, resized WebP textures,
+merged the author's foliage alpha maps and used cutout transparency.
+forest-stairs/bridge/platform/pallet reuse the existing credited CC0 Kenney/Quaternius
+meshes with tiled UVs; forest-house/house-alt/tower reuse the existing credited CC0
+Kenney buildings with an additional detail UV set. No new hand-modeled geometry.
+See docs/forest-art.md for reproducible preparation and renderer integration.
+
+Ability and maze objective props — Kenney Platformer Kit, CC0 1.0.
+https://kenney.nl/assets/platformer-kit
+Pinned mirror: https://github.com/Hidencod/tge-assets/tree/ea2f2aa1ca8da0898330c97df8a5489976b051d0/packs/platformer-kit
+spring.glb -> ascent-spring.glb; lever.glb -> maze-lever.glb;
+door-open.glb -> maze-exit.glb. Original meshes and embedded materials retained.
+Runtime scale/placement, per-object emissive state and authored handle rotation only.
